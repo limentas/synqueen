@@ -14,12 +14,16 @@
       "description": "Default build using Ninja generator",
       "generator": "Ninja",
       "binaryDir": "${workspaceFolder}/../build/${presetName}",
+      "environment": {
+        "CC": "cl",
+        "CXX": "cl"
+      },
+      "toolset": {
+        "value": "host=x64,arch=x64",
+        "strategy": "external"
+      },
       "cacheVariables": {
         "CMAKE_INSTALL_PREFIX": "${workspaceFolder}/../out/install/${presetName}"
-      },
-      "architecture": {
-        "value": "x64",
-        "strategy": "external"
       }
     },
     {

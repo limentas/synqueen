@@ -1,12 +1,15 @@
 {
   "folders": [
     {
-      "path": "service"
+        "path": "service"
     },
     {
-      "path": "ui"
+        "path": "ui"
+    },
+    {
+        "path": "."
     }
-  ],
+],
   "extensions": {
     "recommendations": ["ms-vscode.cmake-tools"]
   },

@@ -24,22 +24,28 @@ FetchContent_MakeAvailable(vcpkg)
 # Changing toolchain file only if it is not changed yet
 # NOTE: This must be defined before the first project call
 set(GENERATED_TOOLCHAIN "${CMAKE_BINARY_DIR}/synqueen-toolchain.cmake")
+
 if(NOT EXISTS ${GENERATED_TOOLCHAIN})
   message(STATUS "Creating custom toolchain file ${GENERATED_TOOLCHAIN}")
+
   if(DEFINED CMAKE_TOOLCHAIN_FILE)
     message(
       STATUS
-        "CMAKE_TOOLCHAIN_FILE is defined and equals to \"${CMAKE_TOOLCHAIN_FILE}\""
+      "CMAKE_TOOLCHAIN_FILE is defined and equals to \"${CMAKE_TOOLCHAIN_FILE}\""
     )
   endif()
-  if(DEFINED CMAKE_TOOLCHAIN_FILE AND NOT ("${CMAKE_TOOLCHAIN_FILE}" STREQUAL
-                                           "${GENERATED_TOOLCHAIN}"))
+
+  if(DEFINED CMAKE_TOOLCHAIN_FILE AND NOT("${CMAKE_TOOLCHAIN_FILE}" STREQUAL
+    "${GENERATED_TOOLCHAIN}"))
     file(WRITE ${GENERATED_TOOLCHAIN} "include(\"${CMAKE_TOOLCHAIN_FILE}\")\n")
   endif()
 
   file(APPEND ${GENERATED_TOOLCHAIN}
-       "include(\"${vcpkg_SOURCE_DIR}/scripts/buildsystems/vcpkg.cmake\")\n")
+    "include(\"${CMAKE_SOURCE_DIR}/cmake/DetectPlatform.cmake\")\n")
+  file(APPEND ${GENERATED_TOOLCHAIN}
+    "include(\"${vcpkg_SOURCE_DIR}/scripts/buildsystems/vcpkg.cmake\")\n")
 endif()
+
 set(CMAKE_TOOLCHAIN_FILE ${GENERATED_TOOLCHAIN})
 
 project(
@@ -54,13 +60,4 @@ message(STATUS "Toolchain: ${CMAKE_TOOLCHAIN_FILE}")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_library(
-  synqueen
-  SHARED
-  include/service.hpp
-  src/service.cpp
-)
-
-find_package(RapidJSON CONFIG REQUIRED)
-
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+add_subdirectory(corelib)
