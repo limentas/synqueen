@@ -12,7 +12,7 @@ add_library(
   ${CMAKE_SOURCE_DIR}/common/src/standardpaths.cpp
   src/synchronizer.hpp
   src/synchronizer.cpp
-  src/pch.h
+  src/precompiled.hpp
 )
 
 find_package(libuv 1.52.1 CONFIG REQUIRED)
@@ -25,4 +25,4 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE SYNQUEEN_EXPORTS)
 
-target_precompile_headers(${PROJECT_NAME} PRIVATE src/pch.h)
+target_precompile_headers(${PROJECT_NAME} PRIVATE src/precompiled.hpp)

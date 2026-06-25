@@ -11,7 +11,7 @@ FetchContent_Declare(
 )
 
 set(VCPKG_BOOTSTRAP_OPTIONS "-disableMetrics")
-
+set(VCPKG_INSTALL_OPTIONS "--clean-after-build" "--no-print-usage")
 if(NOT("${CMAKE_BUILD_TYPE}" STREQUAL "Debug"))
   set(VCPKG_BUILD_TYPE "release") # Install only release for release builds
 endif()

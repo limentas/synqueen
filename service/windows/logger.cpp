@@ -18,7 +18,6 @@ namespace synqueen {
 
 std::shared_ptr<spdlog::logger> createLogger() {
   auto logsPath = (fs::path(StandardPaths::getDataPath()) / "logs").string();
-
   std::cout << "Creating logger with logs path: " << logsPath << std::endl;
 
   try {
